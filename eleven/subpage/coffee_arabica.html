@@ -1,0 +1,29 @@
+<h1>ARABICA</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../ico/chopper.ico" type="image/x-icon" />
+    <title>Yummy Coffee</title>
+
+    <style>
+      .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px; /* 图片之间的间隙 */
+      }
+      .image-container img {
+        width: 25%; /* 每张图片占据25%的宽度 */
+        max-width: 25%; /* 确保图片不会超过25%的宽度 */
+        height: auto; /* 保持图片的宽高比 */
+        object-fit: contain; /* 确保图片在容器内完整显示 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-container">
+      <img src="../image/coffee/arabica.jpeg" alt="Coffee Image 1" />
+    </div>
+  </body>
+</html>

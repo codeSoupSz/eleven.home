@@ -1,34 +1,119 @@
-<h1>Yummy Coffee</h1>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="../ico/chopper.ico" type="image/x-icon" />
-    <title>Yummy Coffee</title>
-
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片缓缓弹出</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-      .image-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px; /* 图片之间的间隙 */
-      }
-      .image-container img {
-        width: 25%; /* 每张图片占据25%的宽度 */
-        max-width: 25%; /* 确保图片不会超过25%的宽度 */
-        height: auto; /* 保持图片的宽高比 */
-        object-fit: contain; /* 确保图片在容器内完整显示 */
-      }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            text-align: center;
+            opacity: 0; /* 初始透明 */
+            /*transform: translateY(150px); !* 初始下移 *!*/
+            transform: translate(-50px, -50px); /* 初始位置左上偏移 */
+            margin-left: -300px;
+            flex-direction: column;
+        }
+
+        .content {
+            display: flex;
+            align-items: center; /* 让图片和按钮垂直居中 */
+        }
+
+        img {
+            width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .description {
+            margin-top: 20px;
+            margin-left: -100px;
+            font-size: 24px;
+            color: #333;
+            opacity: 0; /* 文字初始透明 */
+        }
+
+        .buttons {
+            display: flex;
+            margin-left: 300px; /* 让按钮靠右 */
+            flex-direction: column;
+        }
+
+        .btn {
+            display: block;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-secondary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #1e7e34;
+        }
     </style>
-  </head>
-  <body>
-    <div class="image-container">
-      <img src="../image/coffee/arabica.jpeg" alt="Coffee Image 1" />
-      <img src="../image/coffee/mstand.jpeg" alt="Coffee Image 2" />
-      <img src="../image/coffee/manner.jpeg" alt="Coffee Image 2" />
-      <img src="../image/coffee/grid02.jpeg" alt="Coffee Image 2" />
-      <img src="../image/coffee/peets.jpeg" alt="Coffee Image 2" />
-      <img src="../image/coffee/starbucks.jpeg" alt="Coffee Image 2" />
+</head>
+<body>
+
+<div class="container">
+    <div class="description">一杯ARABICA% 自此爱上咖啡~</div>
+    <img id="popupImage" src="../image/coffee/arabica.jpeg" alt="图片加载出错">
+    <div class="content">
+        <div class="buttons">
+            <a href="coffee_arabica.html" class="btn btn-primary">继续了解ARABICA</a>
+            <a href="coffee_else.html" class="btn btn-secondary">其他咖啡</a>
+        </div>
     </div>
-  </body>
+
+
+</div>
+
+<script>
+    window.onload = function () {
+        gsap.to(".container", {
+            duration: 2,
+            opacity: 1,
+            y: 0,
+            ease: "power2.out"
+        });
+        gsap.to(".description", {
+            duration: 1,
+            delay: 0.5,
+            opacity: 1
+        });
+    };
+</script>
+
+</body>
 </html>
