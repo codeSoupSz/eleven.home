@@ -20,10 +20,7 @@
             --glass: rgba(255, 255, 255, 0.06);
             --glass-border: rgba(255, 255, 255, 0.12);
             --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-            --cup-bg: #ffffff;
-            --cup-ink: #1c1917;
-            --cup-muted: #57534e;
-            --cup-edge: rgba(0, 0, 0, 0.1);
+            --cup-outline: #ffffff;
         }
 
         * {
@@ -74,49 +71,75 @@
             animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
+        .hero-stack {
+            position: relative;
+            width: 100%;
+            filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.42));
+        }
+
         .hero {
             margin: 0 auto;
             width: 100%;
-            /* 杯口与两侧留白加大，避免被 clip 裁掉 */
             padding:
                 clamp(3.2rem, 9vw, 5rem)
                 clamp(2.4rem, 7vw, 4.5rem)
                 clamp(3.5rem, 9vw, 5.2rem);
             border-radius: 0;
-            background: var(--cup-bg);
-            border: 1px solid var(--cup-edge);
-            box-shadow:
-                0 1px 0 rgba(255, 255, 255, 0.85) inset,
-                0 18px 40px rgba(0, 0, 0, 0.12);
-            color: var(--cup-ink);
+            background: linear-gradient(
+                165deg,
+                rgba(7, 13, 20, 0.9) 0%,
+                rgba(12, 22, 34, 0.82) 50%,
+                rgba(8, 14, 22, 0.88) 100%
+            );
+            border: none;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+            color: var(--text);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             -webkit-clip-path: url(#clip-mug);
             clip-path: url(#clip-mug);
-            filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.18));
+        }
+
+        /* 与 clip 同形的白色杯沿（仅描边，不挡内容） */
+        .mug-stroke {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: visible;
+        }
+
+        .mug-stroke path {
+            fill: none;
+            stroke: var(--cup-outline);
+            stroke-width: 2.25;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vector-effect: non-scaling-stroke;
         }
 
         .mug-handle {
             position: absolute;
             top: 32%;
-            /* 贴在杯身外缘，不盖住内容区 */
             right: clamp(0.5rem, 2.5vw, 1.25rem);
             width: clamp(2.6rem, 7.5vw, 3.8rem);
             height: clamp(4.4rem, 13vw, 7rem);
-            border: 0.38em solid #f3f3f3;
+            border: 0.38em solid rgba(255, 255, 255, 0.92);
             border-left: none;
             border-radius: 0 50% 50% 0 / 0 48% 48% 0;
             pointer-events: none;
-            box-shadow:
-                inset -4px 0 10px rgba(0, 0, 0, 0.06),
-                2px 4px 12px rgba(0, 0, 0, 0.08);
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
+            box-shadow: inset -5px 0 14px rgba(0, 0, 0, 0.15);
+            z-index: 2;
         }
 
         .mug-handle::after {
             content: "";
             position: absolute;
-            inset: 20% 15% 20% -8%;
+            inset: 22% 15% 22% -10%;
             border-radius: inherit;
-            border: 0.1em solid rgba(0, 0, 0, 0.06);
+            border: 0.1em solid rgba(255, 255, 255, 0.25);
             border-left: none;
         }
 
@@ -139,7 +162,7 @@
             line-height: 1.08;
             letter-spacing: 0.01em;
             font-feature-settings: "kern" 1;
-            background: linear-gradient(125deg, #0f172a 0%, #334155 100%);
+            background: linear-gradient(120deg, #fff 0%, rgba(255, 255, 255, 0.82) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -150,7 +173,7 @@
             font-size: clamp(1.85rem, 3.6vw, 2.45rem);
             font-weight: 500;
             font-style: italic;
-            color: var(--cup-muted);
+            color: var(--muted);
             letter-spacing: 0.04em;
         }
 
@@ -205,30 +228,30 @@
         }
 
         .hero a.button:focus-visible {
-            outline: 2px solid rgba(37, 99, 235, 0.6);
+            outline: 2px solid rgba(255, 255, 255, 0.85);
             outline-offset: 4px;
         }
 
         .hero a.button-secondary {
-            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
-            color: var(--cup-ink);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 100%);
+            color: var(--text);
             box-shadow:
-                0 0 0 1px rgba(15, 23, 42, 0.12) inset,
-                0 8px 20px rgba(0, 0, 0, 0.06);
+                0 0 0 1px var(--glass-border) inset,
+                0 12px 32px rgba(0, 0, 0, 0.25);
         }
 
         .hero a.button-secondary:hover {
             color: rgb(60, 42, 42);
             background: linear-gradient(145deg, #ffffff 0%, #eef4f8 100%);
             box-shadow:
-                0 0 0 1px rgba(15, 23, 42, 0.18) inset,
-                0 12px 28px rgba(0, 0, 0, 0.1);
+                0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+                0 16px 40px rgba(0, 0, 0, 0.22);
         }
 
         .hero a.button-secondary:active {
             box-shadow:
-                0 0 0 1px rgba(15, 23, 42, 0.15) inset,
-                0 6px 16px rgba(0, 0, 0, 0.08);
+                0 0 0 1px var(--glass-border) inset,
+                0 8px 20px rgba(0, 0, 0, 0.28);
         }
 
         footer {
@@ -268,14 +291,21 @@
             </defs>
         </svg>
         <div class="coffee-mug-inner">
-            <main class="hero" role="main">
-                <h1>Welcome to eleven's home</h1>
-                <p class="tagline">Have a look around.</p>
-                <div class="actions">
-                    <a class="button" href="eleven/subpage/coffee_back.html">Coffee</a>
-                    <a class="button button-secondary" href="eleven/subpage/bilibili.html">Video</a>
-                </div>
-            </main>
+            <div class="hero-stack">
+                <main class="hero" role="main">
+                    <h1>Welcome to eleven's home</h1>
+                    <p class="tagline">Have a look around.</p>
+                    <div class="actions">
+                        <a class="button" href="eleven/subpage/coffee_back.html">Coffee</a>
+                        <a class="button button-secondary" href="eleven/subpage/bilibili.html">Video</a>
+                    </div>
+                </main>
+                <svg class="mug-stroke" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path
+                        d="M4,93 Q50,99 96,93 L92,29 Q86,6 50,3 Q14,6 8,29 Z"
+                    />
+                </svg>
+            </div>
             <span class="mug-handle"></span>
         </div>
     </div>
